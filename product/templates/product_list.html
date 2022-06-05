@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block contents %}
+<div class="container">
+        <h2>윤스트 캠퍼스</h2>
+        <div class="row">
+            {% for p in product_list %}
+            <div class="col-sm-6">
+                <div class="card mb-3">
+                    <div class="embed-responsive embed-responsive-4by3">
+                        <img class="card-img-top embed-responsive-item" src="{{ p.image.url }}" width="100" alt="{{ good }}" />
+                    </div>
+                    <div class="card-body">
+                        <span class="badge bg-outline-dark float-rigth">미분류</span>
+                        <h3 class="card-title h4">{{ p.name }}</h3>
+                        <a class="btn btn-outline-dark" href="{{ good.get_absolute_url }}">구입하기 →</a>
+                    </div>
+                <div class="card-footer">
+                    <div class="small text-muted"></div>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
