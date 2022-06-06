@@ -8,6 +8,7 @@ class Product(models.Model):
     description = models.TextField(verbose_name='상품설명')
     stock = models.IntegerField(verbose_name='재고')
     created_dt = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
+    product_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
     # image = models.ImageField(upload_to='product/images/', blank=False)
 
     def __str__(self):
