@@ -2,6 +2,20 @@ import os.path
 from django.db import models
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'tags'
+    #
+    # def get_absolute_url(self):
+    #     return f'/blog/tag/{self.slug}'
+
+
 class Product(models.Model):
     name = models.CharField(max_length=256, verbose_name='상품명')
     price = models.IntegerField(verbose_name='상품가격')
@@ -9,7 +23,8 @@ class Product(models.Model):
     stock = models.IntegerField(verbose_name='재고')
     created_dt = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
     product_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
-    # image = models.ImageField(upload_to='product/images/', blank=False)
+    tags = models.ManyToManyField(Tag, blank=True)
+
 
     def __str__(self):
         return f'[{self.pk}] [{self.name}]'
@@ -25,3 +40,5 @@ class Product(models.Model):
         db_table = 'my_product'
         verbose_name = '상품'
         verbose_name_plural = '상품'
+
+

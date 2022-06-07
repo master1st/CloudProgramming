@@ -1,20 +1,42 @@
-{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html>
 {% load humanize %}
 {% block contents %}
 {% load static %}
+<head>
+     <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
+     <link rel="stylesheet" href="{% static 'blog/css/product.css' %}" media="screen">
+    <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
+</head>
+<body>
 
+   {% include 'navbar.html' %}
+       <div class="product">
+            <div class="product_info">대체 불가능한 <strong>개발자</strong> 되기 🚀</div>
+           <p class="product_info_sub"><strong>진정한 개발자로 성장해 나가는 곳, YoonstCampus</strong></p>
+           <a class="button_info" href="/">캠퍼스에서 공부하기</a>
+        </div>
 <div class="container">
-        <h2>윤스트 캠퍼스</h2>
+
+
         <div class="row">
             {% for p in product_list %}
             <div class="col-sm-6">
                 <div class="card mb-3">
                     <div class="embed-responsive embed-responsive-4by3">
-                        <img class="card-img-top embed-responsive-item" src="{% static 'images/search_logo.png' %}"  />
+                        <img class="card-img-top embed-responsive-item" src="{{ p.product_image.url }}"  />
                     </div>
                     <div class="card-body">
-                        <span class="badge bg-outline-dark float-rigth">미분류</span>
-                        <h3 class="card-title h4">{{ p.name }}</h3>
+                        <span class="badge bg-outline-dark float-rigth">
+                             {% if p.tags.exists %}
+                            <hr>
+                                {% for tag in p.tags.iterator %}
+                                 <i class = "fas fa-tags">  {{ tag }}</i>
+                                {% endfor %}
+                            {% endif %}
+                        </span>
+                        <h3 class="card-title h4">{{ p.name | truncatewords:6 | safe }}</h3>
                         <a class="btn btn-outline-dark" href="{{ good.get_absolute_url }}">구입하기 →</a>
                     </div>
                 <div class="card-footer">
@@ -26,3 +48,4 @@
         </div>
     </div>
 {% endblock %}
+</body>

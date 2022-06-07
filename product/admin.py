@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product.models import Product
+from product.models import Product, Tag
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -7,3 +7,8 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+
+class TagAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
+admin.site.register(Tag, TagAdmin)

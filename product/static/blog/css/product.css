@@ -1,0 +1,31 @@
+.product_info{
+    color:white;
+    font-size:4rem;
+    padding-left:100px;
+}
+
+.product{
+    width:100%;
+    height: 278px;
+    padding-top:64px;
+    padding-bottom: 64px;
+    padding-left:100px;
+    margin:0px;
+    text-align:left;
+
+    background-color:black;
+}
+.product_info_sub{
+    color:white;
+    font-size:1rem;
+    padding-left:100px;
+
+}
+.button_info{
+    background-color:#5AF900;
+    color:white;
+    font-size:1rem;
+    margin-left:100px;
+    border-radius: 100px;
+    padding:8px 15px 8px 15px;
+}
