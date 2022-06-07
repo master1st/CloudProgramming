@@ -12,6 +12,7 @@ def logout(request):
         del (request.session['user'])
     return redirect('/')
 
+
 def index(request):
     return render(request, 'index.html')
 
@@ -35,7 +36,7 @@ class RegisterView(FormView):
 
 
 class LoginView(FormView):
-    template_name = 'login.html'  # template_name이라고 하면 html파일이조? 이게 부모인 FormView에서 가져온거에요.
+    template_name = 'login.html'  # template_name이q라고 하면 html파일이조? 이게 부모인 FormView에서 가져온거에요.
     form_class = LoginForm
     success_url = '/'
 
@@ -43,3 +44,8 @@ class LoginView(FormView):
     def form_valid(self, form):  # form유효성(데이터가 정상일때)을 마쳤을 때 사용해요. 로그인이 정상적으로 되었는 경우!
         self.request.session['user'] = form.data.get('email')  # sessuib에 키값 user를 생성하는데요. 그 값은 form의 email속성에서 가져다와요.
         return super().form_valid(form)  # 부모클래스 FormView에 있는 form_valid()메소드를 호출합니다.
+
+    def logout(request):
+        if request.session.get('user'):
+            del (request.session['user'])
+        return redirect('/')
