@@ -1,5 +1,6 @@
 from django import forms
 from .models import Product
+from product.models import Comment
 
 class RegisterForm(forms.Form):
     name = forms.CharField(
@@ -31,3 +32,8 @@ class RegisterForm(forms.Form):
             self.add_error('price', "값이 없습니다.")
             self.add_error('stock', "값이 없습니다.")
             self.add_error('description', "값이 없습니다.")
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('content',)

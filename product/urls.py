@@ -9,4 +9,6 @@ urlpatterns = [
     path('createPro/', ProductRegister.as_view()),
     path('', ProductList.as_view()),
     path('<int:pk>/', ProductDetail.as_view()),
+    path('<int:pk>/addComment/', views.addComment),
+
 ]

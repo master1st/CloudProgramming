@@ -2,6 +2,7 @@
 {% load humanize %}
 {% block contents %}
 {% include 'navbar.html' %}
+{% load crispy_forms_tags %}
 
 <div class = "row mt-5">
     <div class = "col-12">
@@ -16,7 +17,33 @@
                 <li class = "list-group-item">남은 수량 : {{ product.stock}}</li>
                 <li class = "list-group-item">등록 날짜 : {{ product.created_at }}</li>
                 <li class = "list-group-item">{{ product.description|safe }} </li>
+                <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form method="post" action="{{ product.get_absolute_url }}/addComment/">{% csrf_token %}
+              <div class="form-group">
+               {{ comment_form | crispy }}
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
 
+        <!-- Single Comment -->
+      {% if product.comment_set.exists %}
+          {% for comment in product.comment_set.iterator %}
+        <div class="media mb-4">
+{#          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">#}
+          <div class="media-body" id = "comment-{{ comment.pk }}">
+            <h5 class="mt-0">{{ user.email }} ({{ comment.created_at }})</h5>
+            <p>{{ comment.content }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      {% endif %}
+
+      </div>
             </ul>
         </div>
     </div>

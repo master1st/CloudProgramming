@@ -1,5 +1,10 @@
 import os.path
+from turtle import mode
 from django.db import models
+from django.contrib.auth.models import User
+
+from markdown import markdown
+# from markdownx.models import MarkdownxField
 
 
 class Tag(models.Model):
@@ -25,6 +30,7 @@ class Product(models.Model):
     product_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
+
     def __str__(self):
         return f'[{self.pk}] [{self.name}]'
 
@@ -39,3 +45,22 @@ class Product(models.Model):
         db_table = 'my_product'
         verbose_name = '상품'
         verbose_name_plural = '상품'
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Product, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    content = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.author}::{self.content}'
+
+    def get_absolute_url(self):
+        return f'{self.post.get_absolute_url()}#comment-{self.pk}'
+
+    class Meta:
+        verbose_name = '댓글'
+        verbose_name_plural = '댓글'

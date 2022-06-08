@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import render,redirect, get_object_or_404
 from .models import Product, Tag
 from .forms import RegisterForm
 from django.views.generic import FormView, ListView, DetailView
-
+from .forms import CommentForm
 
 class ProductRegister(FormView):
     template_name = 'product_register.html'
@@ -40,6 +42,12 @@ class ProductList(ListView):
 class ProductDetail(DetailView):
     template_name = 'product_detail.html'
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetail, self).get_context_data()
+        context['comment_form'] = CommentForm
+        return context
+
     def show_tag_posts(request, pk):
         product = Product.objects.get(pk=pk)
         product_detail = product.product_set.all()
@@ -51,6 +59,22 @@ class ProductDetail(DetailView):
         }
 
         return render(request, 'product/product_detail.html', context)
+
+def addComment(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Product, pk=pk)
+
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.post = post
+            comment.save()
+            return redirect(comment.get_absolute_url())
+        else:
+            return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied
 
     # CBV방식은 FBV방식과 다르게 이미 기정의된 클래스 라이브러리를 상속받아 정의된 기능을 사용하는것
     # postlist역시 포스트들을 가져와서 나열해주는 역할만하고, 즉 post에 대한 정보만 들어있고, 다른 데이터를 같이 매개변수로 전달해주고싶다면,

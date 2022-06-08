@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product.models import Product, Tag
+from product.models import Product, Tag, Comment
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -14,3 +14,4 @@ class TagAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Comment)
