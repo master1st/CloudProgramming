@@ -37,7 +37,7 @@
                             {% endif %}
                         </span>
                         <h3 class="card-title h4">{{ p.name | truncatewords:7 | safe }}</h3>
-                        <a class="btn btn-outline-dark" href="{{ good.get_absolute_url }}">구입하기 →</a>
+                        <a class="btn btn-outline-dark" href="{{ p.get_absolute_url }}"> 구입하기→</a>
                     </div>
                 <div class="card-footer">
                     <div class="small text-muted"></div>

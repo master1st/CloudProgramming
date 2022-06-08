@@ -21,10 +21,9 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='상품가격')
     description = models.TextField(verbose_name='상품설명')
     stock = models.IntegerField(verbose_name='재고')
-    created_dt = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
     product_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
-
 
     def __str__(self):
         return f'[{self.pk}] [{self.name}]'
@@ -34,11 +33,9 @@ class Product(models.Model):
 
     # 에러시 return os.path.basename(self.attached_file.name) 로변경
     def get_absolute_url(self):
-        return f'/blog/{self.pk}'
+        return f'/{self.pk}'
 
     class Meta:
         db_table = 'my_product'
         verbose_name = '상품'
         verbose_name_plural = '상품'
-
-

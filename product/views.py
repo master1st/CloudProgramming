@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Product, Tag
 from .forms import RegisterForm
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, DetailView
 
 
 class ProductRegister(FormView):
@@ -25,17 +25,32 @@ class ProductList(ListView):
     model = Product
     ordering = '-pk'
 
+    def show_tag_posts(request, slug):
+        tag = Tag.objects.get(slug=slug)
+        product_list = tag.product_set.all()
 
-def show_tag_posts(request, slug):
-    tag = Tag.objects.get(slug=slug)
-    product_list = tag.product_set.all()
+        context = {
+            'categories': Product.objects.all(),
+            'tag': tag,
+            'product_list': product_list
+        }
+        return render(request, 'product/product_list.html', context)
 
-    context = {
-        'categories': Product.objects.all(),
-        'tag': tag,
-        'product_list': product_list
-    }
-    return render(request, 'product/product_list.html', context)
+
+class ProductDetail(DetailView):
+    template_name = 'product_detail.html'
+    model = Product
+    def show_tag_posts(request, pk):
+        product = Product.objects.get(pk=pk)
+        product_detail = product.product_set.all()
+
+        context = {
+            'categories': Product.objects.all(),
+            'product': product,
+            'product_detail': product_detail
+        }
+
+        return render(request, 'product/product_detail.html', context)
 
     # CBV방식은 FBV방식과 다르게 이미 기정의된 클래스 라이브러리를 상속받아 정의된 기능을 사용하는것
     # postlist역시 포스트들을 가져와서 나열해주는 역할만하고, 즉 post에 대한 정보만 들어있고, 다른 데이터를 같이 매개변수로 전달해주고싶다면,
