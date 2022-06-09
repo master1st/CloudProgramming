@@ -17,6 +17,22 @@
                 <li class = "list-group-item">남은 수량 : {{ product.stock}}</li>
                 <li class = "list-group-item">등록 날짜 : {{ product.created_at }}</li>
                 <li class = "list-group-item">{{ product.description|safe }} </li>
+
+                <!-- payment Form -->
+                <form action="/create_subscription.php" method="POST">
+                  <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="{{ data_key }}"
+                    data-image="/images/marketplace.png"
+                    data-name="Yoonst Campus"
+                    data-description="{{ description }}"
+                    data-amount="2000"
+                    data-label="Sign Me Up!">
+                  </script>
+                </form>
+
+
+
                 <!-- Comments Form -->
         <div class="card my-4">
           <h5 class="card-header">Leave a Comment:</h5>

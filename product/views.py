@@ -6,6 +6,8 @@ from .forms import RegisterForm
 from django.views.generic import FormView, ListView, DetailView
 from .forms import CommentForm
 
+import stripe
+from django.conf import settings
 class ProductRegister(FormView):
     template_name = 'product_register.html'
     form_class = RegisterForm
@@ -55,10 +57,12 @@ class ProductDetail(DetailView):
         context = {
             'categories': Product.objects.all(),
             'product': product,
-            'product_detail': product_detail
+            'product_detail': product_detail,
+            'stripe.api_key': settings.STRIPE_SECRET_KEY,
+            'description' : '새로 주문을 해주세요!',
+            'data_key' : settings.STRIPE_PUBLIC_KEY,
         }
-
-        return render(request, 'product/product_detail.html', context)
+        return render(request, 'product/product_detail.html', context,)
 
 def addComment(request, pk):
     if request.user.is_authenticated:

@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'crispy_forms',
     'markdownx',
+    'stripe',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+STRIPE_PUBLIC_KEY ='pk_test_51L8aaxEqQ5jsc1HeWWkQE3O1dbPjId7jkbWN2rX7v85Mi9opzXfnwrRkGNE844u86aVJG7s93aKK4RLKDmcJkCAv00QVEHl0oR'
+STRIPE_SECRET_KEY ='sk_test_51L8aaxEqQ5jsc1HekBNaU7OhvHGSpq7RmiRZhWk40cuL019KCqQNITIgs7OSza5XwvDBRwLlbFeXoEwT1m8GTsR000U5nRYpxF'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
