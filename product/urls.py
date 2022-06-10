@@ -10,5 +10,5 @@ urlpatterns = [
     path('', ProductList.as_view()),
     path('<int:pk>/', ProductDetail.as_view()),
     path('<int:pk>/addComment/', views.addComment),
-
+    path('category/<str:slug>/', views.show_category_posts),
 ]

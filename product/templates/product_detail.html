@@ -3,6 +3,7 @@
 {% block contents %}
 {% include 'navbar.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 <div class = "row mt-5">
     <div class = "col-12">
@@ -22,6 +23,7 @@
                 <form action="/create_subscription.php" method="POST">
                   <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    style="font-size:40px"
                     data-key="{{ data_key }}"
                     data-image="/images/marketplace.png"
                     data-name="Yoonst Campus"
