@@ -45,7 +45,3 @@ class LoginView(FormView):
         self.request.session['user'] = form.data.get('email')  # sessuib에 키값 user를 생성하는데요. 그 값은 form의 email속성에서 가져다와요.
         return super().form_valid(form)  # 부모클래스 FormView에 있는 form_valid()메소드를 호출합니다.
 
-    def logout(request):
-        if request.session.get('user'):
-            del (request.session['user'])
-        return redirect('/')

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 from markdown import markdown
 # from markdownx.models import MarkdownxField
+
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
@@ -13,7 +14,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/blog/category/{self.slug}'
+        return f'/category/{self.slug}'
 
     class Meta:
         verbose_name_plural = 'categories'
@@ -39,6 +40,8 @@ class Product(models.Model):
     stock = models.IntegerField(verbose_name='재고')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
     product_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
+
+    category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True)
 
 

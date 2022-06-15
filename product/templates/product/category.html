@@ -1,0 +1,20 @@
+<!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Categories</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled mb-0">
+                                    {% for c in categories %}
+                                        <li>
+                                            <a href="{{ c.get_absolute_url }}">{{ c.name }} ({{ c.product_set.count }}) </a>
+                                        </li>
+                                    {% endfor %}
+                                <li>
+                                    <a href="/blog/category/no-category">미분류 ({{ no_category_product_count }})</a>
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>

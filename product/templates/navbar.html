@@ -34,16 +34,15 @@
                             <a class="nav-link" href="/">{{ user.email }} </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/logout/" data-toggle="modal" data-target="#loginModal">Log Out</a>
+                            <a class="nav-link" href="/user/logout/" >Log Out</a>
                         </li>
                 </ul>
                 {% else %}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/login/" data-toggle="modal" data-target="#loginModal">Log In</a>
-                    </li>
+                        <a class="nav-link" href="/user/login/" >Log In</a></li>
                       <li class="nav-item">
-                        <a class="nav-link" href="/user/register/" data-toggle="modal" data-target="#RegisterModal">Sign Up</a>
+                        <a class="nav-link" href="/user/register/" >Sign Up</a>
                     </li>
                 </ul>
                 {% endif %}

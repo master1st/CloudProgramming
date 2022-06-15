@@ -1,0 +1,7 @@
+---
+applications:
+- name: campusyoonseokhyuncam
+  buildpack: python_buildpack
+  memory : 512M
+  instance : 1
+  command : waitress-serve --port=8080 yoonsta_prj.wsgi:application
