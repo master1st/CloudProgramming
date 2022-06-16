@@ -1,7 +1,6 @@
-
-
 from pathlib import Path
 import os
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -16,7 +15,6 @@ SECRET_KEY = 'django-insecure-fefj4jwp%aw*h1(w79&)x1q8#*ye=&%$oamh-slk0=3mdnffm)
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -44,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'yoonsta_prj.urls'
@@ -66,17 +65,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'yoonsta_prj.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+LOCAL_SQLITE = 'sqlite:///' + os.path.abspath(os.path.join(BASE_DIR, 'db.sqlite3'))
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(default=LOCAL_SQLITE)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -96,7 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -112,16 +112,16 @@ LOGOUT_REDIRECT_URL = '/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-STRIPE_PUBLIC_KEY ='pk_test_51L8aaxEqQ5jsc1HeWWkQE3O1dbPjId7jkbWN2rX7v85Mi9opzXfnwrRkGNE844u86aVJG7s93aKK4RLKDmcJkCAv00QVEHl0oR'
-STRIPE_SECRET_KEY ='sk_test_51L8aaxEqQ5jsc1HekBNaU7OhvHGSpq7RmiRZhWk40cuL019KCqQNITIgs7OSza5XwvDBRwLlbFeXoEwT1m8GTsR000U5nRYpxF'
+STRIPE_PUBLIC_KEY = 'pk_test_51L8aaxEqQ5jsc1HeWWkQE3O1dbPjId7jkbWN2rX7v85Mi9opzXfnwrRkGNE844u86aVJG7s93aKK4RLKDmcJkCAv00QVEHl0oR'
+STRIPE_SECRET_KEY = 'sk_test_51L8aaxEqQ5jsc1HekBNaU7OhvHGSpq7RmiRZhWk40cuL019KCqQNITIgs7OSza5XwvDBRwLlbFeXoEwT1m8GTsR000U5nRYpxF'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
